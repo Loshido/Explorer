@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/global.css">
+</head>
+<body class="grid h-dvh w-dvw md:grid-cols-2 lg:grid-cols-3 px-4 py-8 md:px-16 md:py-32">
+    <div class="md:col-start-2 lg:col-start-3 w-full md:w-fit h-fit bg-yell p-4 md:p-8 
+        flex flex-col">
+        <p class="font-black text-black/50 -mb-2">
+            CODE
+        </p>
+        <input type="text" placeholder="xxxxx-xxxxx-xxxxx" max="17" maxlength="17" 
+            class="w-[17ch] text-2xl md:text-4xl font-semibold outline-none">
+        <div class="flex flex-row flex-wrap gap-y-1 gap-4 mt-8 items-center uppercase font-bold">
+            <a href="/public" class="px-1 hover:text-yell hover:bg-black 
+                transition-colors duration-100">
+                [ public ]
+            </a>
+            <a href="https://github.com/Loshido/Explorer" class="px-1 flex flex-row hover:text-yell hover:bg-black 
+                transition-colors duration-100 group">
+                [ github ]
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke-width="2" stroke-linecap="round" 
+                    stroke-linejoin="round" class="-scale-x-100 mt-1.5 -ml-1.5 group-hover:stroke-yell stroke-black">
+                    <path d="M12 18.338a2.1 2.1 0 0 0-.987.244L6.396 
+                    21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.12 2.12 0 0 
+                    0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.12 
+                    2.12 0 0 0 1.597-1.16l2.309-4.679A.53.53 0 0 1 12 2"/>
+                </svg>
+            </a>
+            <a href="https://github.com/Loshido" class="px-1 hover:text-yell hover:bg-black 
+                transition-colors duration-100">
+                [ loshido ]
+            </a>
+        </div>
+    </div>
+    <script type="module" src="/login/input.ts"></script>
+</body>
+</html>

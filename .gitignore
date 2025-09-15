@@ -4,3 +4,6 @@ node_modules
 /passwd
 /assets/style.css
 /explorer
+**/node_modules
+dist
+**/.DS_Store

@@ -1,0 +1,20 @@
+{
+	"name": "ripple-explorer",
+	"type": "module",
+	"scripts": {
+		"start": "vite",
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite preview"
+	},
+	"devDependencies": {
+		"vite": "^7.1.4",
+		"vite-plugin-ripple": "^0.2.29"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.1.13",
+		"ripple": "^0.2.29",
+		"tailwindcss": "^4.1.13",
+		"typescript": "^5.9.2"
+	}
+}

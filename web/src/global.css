@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme {
+    --color-yell: #c2fe0c;
+}
