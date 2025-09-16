@@ -1,5 +1,5 @@
 use time::{Duration, OffsetDateTime};
-
+use std::env;
 use rocket::{http::{private::cookie::CookieBuilder, CookieJar}, response::Redirect};
 use crate::{auth::{jwt::{sign, verify}, store::exists}};
 
@@ -28,10 +28,13 @@ pub async fn handle(payload: String, cookies: &CookieJar<'_>) -> Response {
         return Response::Failed("no".to_string());
     }
 
+    let domain = env::var("COOKIE_DOMAIN").unwrap_or("localhost".to_string());
+    let secure = env::var("COOKIE_SECURE").unwrap_or("no".to_string());
     
     let token = sign().unwrap();
     let cookie = CookieBuilder::new("token", token)
-        .domain("localhost")
+        .domain(domain)
+        .secure(&secure != "no")
         .expires(
             OffsetDateTime::now_utc() + Duration::days(7)
         )
