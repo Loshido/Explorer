@@ -64,6 +64,14 @@ url
         path(nom, href)
     })
 
+
+if(url.length > 1) {
+    document.title = `Explorer - ` + url
+        .split('/')
+        .filter(e => e.length > 0)
+        .at(-1) 
+}
+
 const setup = async () => {
     const response = await fetch('/_payload' + url, {
         credentials: 'include'
@@ -76,17 +84,11 @@ const setup = async () => {
     }
 
     data.files.forEach(entity => {
-        if(entity[0]) {
-            file(
-                entity[1].split('/').filter(e => e.length > 0).at(-1), 
-                '/' + entity[1]
-            )
-        } else {
-            folder(
-                entity[1].split('/').filter(e => e.length > 0).at(-1), 
-                '/' + entity[1]
-            )
-        }
+        const name = entity[1].split('/').filter(e => e.length > 0).at(-1)
+        const path = '/' + entity[1]
+        
+        if(entity[0]) file(name, path)
+        else folder(name, path)
     })
 }
 
