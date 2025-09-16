@@ -35,6 +35,9 @@ pub fn exists(pass: &str) -> Result<bool, ()> {
     let store: Vec<String> = read().unwrap();
 
     for line in store {
+        if line.len() != 17 {
+            continue;
+        }
         if line.eq(pass) {
             return Ok(true)
         }

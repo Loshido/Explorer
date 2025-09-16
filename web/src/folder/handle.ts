@@ -21,7 +21,7 @@ function path(nom: string, href: string) {
 function file(nom: string, href: string) {
     const a = document.createElement('a')
     a.href = href;
-    a.classList.add("flex gap-1 py-2 px-2.5 hover:bg-black/10")
+    a.className = "flex gap-1 py-2 px-2.5 hover:bg-black/10"
     a.innerHTML = `
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" 
             stroke="currentColor" stroke-width="2" stroke-linecap="round" 
@@ -39,7 +39,7 @@ function file(nom: string, href: string) {
 function folder(nom: string, href: string) {
     const a = document.createElement('a')
     a.href = href;
-    a.classList.add("flex gap-1 py-2 px-2.5 hover:bg-black/10 font-medium")
+    a.className = "flex gap-1 py-2 px-2.5 hover:bg-black/10 font-medium"
     a.innerHTML = `
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" 
             stroke="currentColor" stroke-width="2" stroke-linecap="round" 
@@ -64,3 +64,30 @@ url
         path(nom, href)
     })
 
+const setup = async () => {
+    const response = await fetch('/_payload' + url, {
+        credentials: 'include'
+    })
+    if(!response.ok) return
+
+    const data = await response.json() as {
+        path: string,
+        files: [boolean, string][]
+    }
+
+    data.files.forEach(entity => {
+        if(entity[0]) {
+            file(
+                entity[1].split('/').filter(e => e.length > 0).at(-1), 
+                '/' + entity[1]
+            )
+        } else {
+            folder(
+                entity[1].split('/').filter(e => e.length > 0).at(-1), 
+                '/' + entity[1]
+            )
+        }
+    })
+}
+
+setup()

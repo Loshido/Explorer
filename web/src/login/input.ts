@@ -10,12 +10,30 @@ input.addEventListener('input', () => {
     }
 })
 
-input.addEventListener('keydown', (event) => {
+input.addEventListener('keydown', async (event) => {
     if(event.key === "Backspace" && (input.value.length === 12 || input.value.length === 6)) {
         event.preventDefault()
         input.value = input.value.slice(0, -2)
     }
     if(event.key === "Enter" && input.value.length === 17) {
-        // ask to connect
+        const response = await fetch('/login', {
+            method: "POST",
+            body: input.value
+        })
+
+        if(response.ok) {
+            input.classList.add("success")
+
+            setTimeout(() => {
+                input.classList.remove("success")
+                location.reload()
+            }, 500);
+        } else {
+            input.classList.add("error")
+
+            setTimeout(() => {
+                input.classList.remove("error")
+            }, 500);
+        }
     }
 })

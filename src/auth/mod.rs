@@ -1,5 +1,5 @@
 use std::{env, path::PathBuf};
-mod store;
+pub mod store;
 pub mod jwt;
 
 pub fn auth_version() -> String {

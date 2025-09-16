@@ -1,6 +1,6 @@
-use std::{env, time::{Duration, Instant}};
+use std::{env, time::{Duration, Instant, UNIX_EPOCH}};
 use super::auth_version;
-use jsonwebtoken::{ decode, encode, Algorithm, DecodingKey, EncodingKey, Header, Validation };
+use jsonwebtoken::{ decode, encode, DecodingKey, EncodingKey, Header, Validation };
 use serde::{Deserialize, Serialize};
 
 fn encode_secret() -> EncodingKey {
@@ -12,7 +12,7 @@ fn decode_secret() -> DecodingKey {
     DecodingKey::from_secret(secret.as_bytes())
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 struct Claims {
     iss: String,
     sub: String,
@@ -22,14 +22,13 @@ struct Claims {
 }
 
 pub fn sign() -> Result<String, jsonwebtoken::errors::Error> {
-    let mut header = Header::new(Algorithm::RS256);
-    header.typ = Some("JWT".to_string());
+    let header = Header::default();
 
     let key = encode_secret();
 
     // 1 semaine
-    let exp = Instant::now() + Duration::from_secs(60 * 60 * 24 * 7);
-    let exp = exp.elapsed().as_millis();
+    let exp = UNIX_EPOCH.elapsed().unwrap() + Duration::from_secs(60 * 60 * 24 * 7);
+    let exp = exp.as_millis();
     let claims = Claims {
         iss: "nogata".to_string(),
         sub: "explorer".to_string(),
