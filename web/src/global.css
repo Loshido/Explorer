@@ -3,3 +3,9 @@
 @theme {
     --color-yell: #c2fe0c;
 }
+
+@layer {
+    .grid-rows-16 {
+        grid-template-rows: repeat(16, minmax(0, 1fr));
+    }
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +7,22 @@
     <link rel="stylesheet" href="/global.css">
 </head>
 <body class="h-dvh w-dvw flex flex-col">
-    <header class="w-full h-fit px-48 py-2 bg-yell flex flex-row">
-        <a class="p-1 w-fit hover:bg-black/10 rounded cursor-pointer transition-colors">
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="2" 
-            stroke-linecap="round" stroke-linejoin="round">
-                <rect stroke="black" width="18" height="18" x="3" y="3" rx="2"/>
-                <line stroke="black" x1="9" x2="15" y1="15" y2="9"/>
-            </svg>
-        </a>
+    <header class="w-full h-fit px-4 md:px-16 lg:px-48 py-3 
+        bg-yell flex gap-4 flex-row items-center">
+            <a href="/" class="p-0.5 w-fit hover:bg-black cursor-pointer transition-colors group">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="2" 
+                stroke-linecap="round" stroke-linejoin="round" 
+                class="stroke-black group-hover:stroke-yell transition-colors" >
+                    <rect width="18" height="18" x="3" y="3" rx="2"/>
+                    <line x1="9" x2="15" y1="15" y2="9"/>
+                </svg>
+            </a>
     </header>
-    <main class="w-full">
-
+    <main class="w-full sm:grid grid-flow-col
+        lg:grid-cols-5 lg:px-32 lg:py-8
+        md:grid-cols-4 md:px-16 
+        flex flex-col grid-cols-2 grid-rows-16 p-4">
     </main>
+    <script type="module" src="/folder/handle.ts"></script>
 </body>
 </html>

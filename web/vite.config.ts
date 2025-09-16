@@ -11,7 +11,8 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 folder: "/folder/index.html",
-                login: "/login/index.html"
+                login: "/login/index.html",
+                404: "/404/index.html"
             }
         }
 	},

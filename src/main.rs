@@ -1,24 +1,15 @@
 #[macro_use] extern crate rocket;
 
-mod index;
-mod public;
-mod private;
-mod auth;
-mod import;
-
-mod html;
-
 use rocket::fs::FileServer;
+mod handle;
+pub mod template;
+pub mod auth;
 
 #[launch]
 fn rocket() -> _ {
     rocket::build()
+        .mount("/assets", FileServer::from("./dist/assets"))
         .mount("/", routes![
-            index::handler, 
-            public::handler, 
-            private::handler,
-            import::handler,
-            auth::handler::post
+            handle::handler, 
         ])
-        .mount("/assets", FileServer::from("./assets"))
 }

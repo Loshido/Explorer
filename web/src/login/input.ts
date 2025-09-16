@@ -1,5 +1,5 @@
 const input = document.querySelector('input') as HTMLInputElement | null
-if(!input) throw new Error('Wrong page!')
+if(!input) throw new Error('Mauvaise page')
 
 input.addEventListener('input', () => {
     if(input.value.at(5) !== '-' && input.value.length >= 5) {
