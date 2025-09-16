@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+    --color-yell: #c2fe0c;
+}
+
+@layer {
+    .grid-rows-16 {
+        grid-template-rows: repeat(16, minmax(0, 1fr));
+    }
+}
+
+.error{
+    --inherit-color: red;
+    --inherit-bg: inherit;
+    animation: blink 1s ease-in-out;
+}
+.success{
+    --inherit-color: #c2fe0c;
+    --inherit-bg: #fff;
+    animation: blink 1s ease-in-out;
+}
+
+@keyframes blink {
+    30% { 
+        color: var(--inherit-color);
+        background-color: var(--inherit-bg);
+    }
+}

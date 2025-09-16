@@ -1,92 +1,15 @@
-pub mod fs;
-pub mod handler;
+use std::{env, path::PathBuf};
+pub mod store;
+pub mod jwt;
 
-use std::time::{SystemTime, UNIX_EPOCH};
-use rand::Rng;
-use std::collections::hash_map::DefaultHasher;
-use std::hash::{Hash, Hasher};
-use serde::{Deserialize, Serialize};
-
-#[derive(Serialize)]
-pub struct Directory(pub Vec<(String, bool)>);
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct User(pub (String, String, u64, Option<u64>));
-
-impl User {
-    // return a hash if the user have the correct credentials
-    fn login(&mut self, username: &str, password: &str) -> Option<u64> {
-        if self.0.0 == username && self.0.1 == password {
-            if self.0.3.is_some() {
-                let hash = self.0.3.unwrap();
-                if self.auth(hash) {
-                    return Some(hash)
-                }
-            }
-            let mut rng = rand::rng();
-            let random_bytes: [u8; 32] = rng.random();
-        
-            let mut hasher = DefaultHasher::new();
-        
-            random_bytes.hash(&mut hasher);
-        
-            let hash_value = hasher.finish();
-
-            let timestamp = SystemTime::now()
-                .duration_since(UNIX_EPOCH).unwrap();
-
-            self.0.2 = timestamp.as_secs() + 60 * 60 * 24 * 7 * 16;
-            self.0.3 = Some(hash_value);
-            return Some(hash_value)
-        }
-        None
-    }
-
-    // return whether is token is valid and not expired
-    pub fn auth(&self, token: u64) -> bool {
-        let now = SystemTime::now()
-            .duration_since(UNIX_EPOCH).unwrap();
-
-        Some(token) == self.0.3 && now.as_secs() < self.0.2
-    }
+pub fn auth_version() -> String {
+    env::var("AUTH_VERSION").unwrap_or("1".to_string())
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Users(pub Vec<User>);
-
-impl Users {
-    pub fn exists(&mut self, username: &str) -> Option<&mut User> {
-        for user in self.0.iter_mut() {
-            if user.0.0 == username {
-                return Some(user);
-            }
-        }
-        None
-    }
-
-    #[allow(dead_code)]
-    pub fn create(&mut self, username: String, password: String) -> bool {
-        match self.exists(&username) {
-            Some(_) => false,
-            _ => {
-                self.0.push(User((username, password, 0, None)));
-                self.save();
-                true
-            }
-        }
-    }
+pub fn storage_path() -> PathBuf {
+    let path = env::var("STORAGE").unwrap_or(String::from("./pass"));
     
-    #[allow(dead_code)]
-    pub fn remove(&mut self, username: String) -> bool {
-        if let Some(pos) = self.0.iter().position(|user| user.0.0 == username) {
-            self.0.remove(pos);
-            self.save();
-            true
-        } else {
-            false
-        }
-    }
-    pub fn save(&self) {
-        fs::save(self);
-    }
+    PathBuf::from(
+        path.as_str()
+    )
 }
