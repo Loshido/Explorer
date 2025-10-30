@@ -18,7 +18,7 @@ input.addEventListener('keydown', async (event) => {
     if(event.key === "Enter" && input.value.length === 17) {
         const response = await fetch('/login', {
             method: "POST",
-            body: input.value
+            body: input.value,
         })
 
         if(response.ok) {

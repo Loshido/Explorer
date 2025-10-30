@@ -7,7 +7,7 @@ pub fn auth_version() -> String {
 }
 
 pub fn storage_path() -> PathBuf {
-    let path = env::var("STORAGE").unwrap_or(String::from("./pass"));
+    let path = env::var("PASS_FILE").unwrap_or(String::from("./pass"));
     
     PathBuf::from(
         path.as_str()
