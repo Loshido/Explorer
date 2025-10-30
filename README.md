@@ -38,7 +38,7 @@ one key per line, 17 characters each including separators.
 ## Docker
 
 `docker build -t explorer .`\
-`docker run -d -p 80:80 -e JWT_SECRET=??? -v ./data/???:/app/data -v ./pass:/app/pass --name explorer explorer`
+`docker run -d -p 80:80 -e JWT_SECRET=??? -v ./data/???:/app/data -v ./pass:/app/pass --name explorer ghcr.io/loshido/explorer:latest`
 
 ## In production
 
