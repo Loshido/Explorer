@@ -60,6 +60,7 @@ pub async fn handle(path: PathBuf, cookies: &CookieJar<'_>) -> Response {
                             _path.file_name().unwrap()
                         ).to_str().unwrap().to_string())
                 })
+                .filter(|entry| !entry.1.starts_with('.'))
                 .collect();
 
             Response::Data(Json(Payload {

@@ -24,6 +24,7 @@ COPY Rocket.toml .
 ARG ROCKET_ADDRESS=0.0.0.0
 ARG ROCKET_PORT=80
 ARG ROCKET_LOG_LEVEL=normal
+ENV ROCKET_IDENT=loshido-explorer
 
 EXPOSE ${ROCKET_PORT}
 ENTRYPOINT [ "/app/explorer" ]
